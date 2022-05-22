@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { deleteData, getData } from '../../service/data.service';
 import ConfirmationDialog from '../confirmation-dialog';
-import capitalizeFirstLetter from '../../util/capitalize-first-letter';
+import { toCapitalizedWords } from '../../util/string-functions';
 
 export default function EntityList({ resource, label, columns }) {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ export default function EntityList({ resource, label, columns }) {
       navigate(`/${resource}`, {
         state: {
           message: {
-            text: `${capitalizeFirstLetter(resource)} gelöscht`,
+            text: `${toCapitalizedWords(resource)} gelöscht`,
             severity: 'success',
           },
         },

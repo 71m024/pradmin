@@ -4,15 +4,18 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useContext } from 'react';
 import { deleteData, postData, putData } from '../../service/data.service';
+import DataContext from './data-context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
 };
 
 export default function EntityForm({
-  resource, data, children, cards,
+  resource, children, cards,
 }) {
+  const [data] = useContext(DataContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {

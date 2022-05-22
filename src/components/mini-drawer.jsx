@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import ProfileMenu from './profile-menu';
 // eslint-disable-next-line import/no-cycle
 import ColorModeSwitch from './color-mode-switch';
-import menu from '../config/menu';
+import menu from '/src/config/menu';
 
 const drawerWidth = 240;
 

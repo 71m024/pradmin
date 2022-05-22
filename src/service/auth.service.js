@@ -1,9 +1,11 @@
-import ENTRYPOINT from '../config/entrypoint';
+export default class AuthService {
+  constructor(entrypoint) {
+    this.entrypoint = entrypoint;
+  }
 
-class AuthService {
-  static login(email, password) {
+  login(email, password) {
     const request = new Request(
-      `${ENTRYPOINT}authentication_token`,
+      `${this.entrypoint}authentication_token`,
       {
         method: 'POST',
         body: JSON.stringify({ email, password }),
@@ -38,5 +40,3 @@ class AuthService {
     return {};
   }
 }
-
-export default AuthService;

@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Button, Chip, Stack, TextField,
 } from '@mui/material';
+import DataContext from '../crud/data-context';
 
-export default function ChipField({ data, setData, valueField }) {
+export default function AdminChipField({ valueField }) {
+  const [data, setData] = useContext(DataContext);
   const [newChip, setNewChip] = useState('');
 
   const handleDeleteChip = (role) => () => {
