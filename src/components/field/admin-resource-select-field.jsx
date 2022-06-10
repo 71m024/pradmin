@@ -2,17 +2,18 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { MenuItem } from '@mui/material';
 import AdminSelectField from './admin-select-field';
-import { getData } from '../../service/data.service';
 import DataContext from '../crud/data-context';
+import DataServiceContext from '../crud/data-service-context';
 
 export default function AdminResourceSelectField({
   name, label, resource, itemReferenceGetter,
 }) {
+  const [dataService] = useContext(DataServiceContext);
   const [data] = useContext(DataContext);
   const [values, setValues] = useState(null);
 
   useEffect(() => {
-    getData(resource)
+    dataService.getData(resource)
       .then((response) => {
         setValues(response);
       });

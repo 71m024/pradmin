@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Button, Grid, Paper, Stack, TableContainer,
 } from '@mui/material';
@@ -8,18 +8,19 @@ import { DataGrid } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { deleteData, getData } from '../../service/data.service';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
+import DataServiceContext from './data-service-context';
 
 export default function EntityList({ resource, label, columns }) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = useState([]);
+  const [dataService] = useContext(DataServiceContext);
   const [data, setData] = useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const loadData = () => {
-    getData(resource)
+    dataService.getData(resource)
       .then((response) => setData((response)));
   };
 
@@ -42,7 +43,7 @@ export default function EntityList({ resource, label, columns }) {
   const handleDeleteConfirmed = () => {
     const promises = [];
     selectedRows.forEach((rowId) => {
-      promises.push(deleteData(`${resource}/${rowId}`));
+      promises.push(dataService.deleteData(`${resource}/${rowId}`));
     });
     Promise.all(promises).then(() => {
       navigate(`/${resource}`, {
@@ -73,11 +74,15 @@ export default function EntityList({ resource, label, columns }) {
             {selectedRows.length > 0
               && (
                 <Button color="error" onClick={handleDelete}>
-                  <DeleteIcon /> &nbsp; Löschen
+                  <DeleteIcon />
+                  {' '}
+&nbsp; Löschen
                 </Button>
               )}
             <Button component={Link} variant="contained" to={`/${resource}/new`}>
-              <AddIcon /> &nbsp; New
+              <AddIcon />
+              {' '}
+&nbsp; New
             </Button>
           </Stack>
         </Grid>

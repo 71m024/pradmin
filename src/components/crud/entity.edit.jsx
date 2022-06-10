@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getData } from '../../service/data.service';
+import { useContext, useEffect, useState } from 'react';
 import DataContext from './data-context';
+import DataServiceContext from './data-service-context';
 
 export default function EntityEdit({ resource, children }) {
   const { id } = useParams();
+  const [dataService] = useContext(DataServiceContext);
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    getData(`${resource}/${id}`)
+    dataService.getData(`${resource}/${id}`)
       .then((response) => {
         setData(response);
       });
