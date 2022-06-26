@@ -20,8 +20,7 @@ import AuthService from "./service/auth.service";
 import authHeader from "./service/auth-header";
 import DataService from "./service/data.service";
 import {capitalizeFirstLetter, toCapitalizedWords} from "./util/string-functions";
-import {ColorModeContext} from "./CrudApp";
-import ToggleColorMode from "./CrudApp";
+import {ColorModeContext, CrudApp} from "./crud.app";
 
 export {
     DataContext, DataServiceContext,
@@ -40,5 +39,5 @@ export {
     capitalizeFirstLetter,
     toCapitalizedWords,
     ColorModeContext,
-    ToggleColorMode
+    CrudApp
 };

@@ -13,7 +13,7 @@ import AuthService from './service/auth.service';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-function CrudApp({ routes }) {
+function CrudContainer({ routes }) {
   if (!(useLocation().pathname === '/login' || AuthService.getCurrentUser())) {
     return <Navigate push to="/login" />;
   }
@@ -31,7 +31,7 @@ function CrudApp({ routes }) {
   );
 }
 
-export default function ToggleColorMode() {
+export function CrudApp() {
   const states = ['system', 'light', 'dark'];
   const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const storedColorMode = localStorage.getItem('preferredColorMode');
@@ -62,7 +62,7 @@ export default function ToggleColorMode() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CrudApp />
+        <CrudContainer />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
