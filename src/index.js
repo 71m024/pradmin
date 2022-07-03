@@ -1,9 +1,9 @@
-import DataContext from "./components/crud/data-context";
-import DataServiceContext from "./components/crud/data-context";
+import DataContext from "./components/crud/context/data.context";
+import ServiceContext from "./components/crud/context/service.context";
 import EntityCrud from "./components/crud/entity.crud";
 import EntityEdit from "./components/crud/entity.edit";
-import EntityForm from "./components/crud/entity.edit";
-import EntityList from "./components/crud/entity.edit";
+import EntityForm from "./components/crud/entity.form";
+import EntityList from "./components/crud/entity.list";
 import AdminChipField from "./components/field/admin-chip-field";
 import AdminResourceSelectField from "./components/field/admin-resource-select-field";
 import AdminSelectField from "./components/field/admin-select-field";
@@ -23,7 +23,7 @@ import {capitalizeFirstLetter, toCapitalizedWords} from "./util/string-functions
 import {ColorModeContext, CrudApp} from "./crud.app";
 
 export {
-    DataContext, DataServiceContext,
+    DataContext, ServiceContext,
     EntityCrud, EntityEdit, EntityForm, EntityList,
     AdminChipField, AdminResourceSelectField, AdminSelectField, AdminTextField,
     ColorModeSwitch,

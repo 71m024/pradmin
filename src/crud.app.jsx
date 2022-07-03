@@ -1,8 +1,6 @@
+import * as React from 'react';
 import {
-  React, createContext, useMemo, useState,
-} from 'react';
-import {
-  Navigate, Route, Routes, useLocation,
+  Navigate, Route, Routes, useLocation, useRoutes
 } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -11,33 +9,44 @@ import Login from './components/login';
 import Logout from './components/logout';
 import AuthService from './service/auth.service';
 
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 function CrudContainer({ routes }) {
-  if (!(useLocation().pathname === '/login' || AuthService.getCurrentUser())) {
+  if (useLocation().pathname !== '/login' && !AuthService.getCurrentUser()) {
     return <Navigate push to="/login" />;
   }
+
+  const allRoutes = useRoutes([
+    {
+      index: true,
+      element: <Navigate to="/user" />
+    },
+    {
+      path: 'login',
+      element: <Login />
+    },
+    {
+      path: 'logout',
+      element: <Logout />
+    },
+    ...routes
+  ]);
 
   return (
     <Container component="main">
       <CssBaseline />
-      <Routes>
-        <Route path="/*" element={<Navigate to="/users" />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        {routes}
-      </Routes>
+      {allRoutes}
     </Container>
   );
 }
 
-export function CrudApp() {
+export function CrudApp({ routes }) {
   const states = ['system', 'light', 'dark'];
   const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const storedColorMode = localStorage.getItem('preferredColorMode');
-  const [mode, setMode] = useState(storedColorMode ?? 'system');
+  const [mode, setMode] = React.useState(storedColorMode ?? 'system');
 
-  const colorMode = useMemo(
+  const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((m) => {
@@ -50,7 +59,7 @@ export function CrudApp() {
     [],
   );
 
-  const theme = useMemo(
+  const theme = React.useMemo(
     () => createTheme({
       palette: {
         mode: mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : mode,
@@ -62,7 +71,7 @@ export function CrudApp() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CrudContainer />
+        <CrudContainer routes={routes} />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

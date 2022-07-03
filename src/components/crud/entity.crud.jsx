@@ -11,15 +11,15 @@ export default function EntityCrud({ listComponent, newComponent, editComponent 
       <StatusSnackbar />
       <Routes>
         <Route
-          path="/"
+          index
           element={listComponent}
         />
         <Route
-          path="/new"
+          path="new"
           element={newComponent}
         />
         <Route
-          path="/:id"
+          path=":id"
           element={editComponent}
         />
       </Routes>

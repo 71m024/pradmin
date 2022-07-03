@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useContext } from 'react';
 import { toCapitalizedWords } from '../../util/string-functions';
-import DataContext from '../crud/data-context';
+import DataContext from '../crud/context/data.context';
 
 export default function AdminSelectField({
   name, label, value, values, menuItemFactory,

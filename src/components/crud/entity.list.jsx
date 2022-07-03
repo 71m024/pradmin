@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useContext, useEffect, useState } from 'react';
 import {
   Button, Grid, Paper, Stack, TableContainer,
 } from '@mui/material';
@@ -10,23 +9,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
-import DataServiceContext from './data-service-context';
+import ServiceContext from './context/service.context';
 
 export default function EntityList({ resource, label, columns }) {
   const navigate = useNavigate();
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [dataService] = useContext(DataServiceContext);
-  const [data, setData] = useState([]);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const { dataService } = React.useContext(ServiceContext);
+  const [data, setData] = React.useState([]);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
   const loadData = () => {
     dataService.getData(resource)
       .then((response) => setData((response)));
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  React.useEffect(() => {
+    if (dataService) {
+      loadData();
+    }
+  }, [dataService]);
 
   const rowClickHandler = (rowParams) => {
     navigate(`/${resource}/${rowParams.row.id}`);

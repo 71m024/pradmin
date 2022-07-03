@@ -6,7 +6,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useContext } from 'react';
 import { deleteData, postData, putData } from '../../service/data.service';
-import DataContext from './data-context';
+import DataContext from './context/data.context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,

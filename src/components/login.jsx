@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,9 +11,11 @@ import Typography from '@mui/material/Typography';
 import { Navigate } from 'react-router-dom';
 import Copyright from './copyright';
 import AuthService from '../service/auth.service';
+import {ServiceContext} from "../index";
 
 export default function Login() {
   const [user, setUser] = useState(AuthService.getCurrentUser);
+  const { authService } = useContext(ServiceContext);
 
   if (user) {
     return <Navigate push to="/" />;
@@ -22,7 +24,7 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    AuthService.login(data.get('email'), data.get('password'))
+    authService.login(data.get('email'), data.get('password'))
       .then((response) => {
         setUser(response);
       })
