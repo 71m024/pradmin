@@ -88,7 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ company }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -118,7 +118,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            eventpool
+            {company}
           </Typography>
           <ColorModeSwitch />
           <ProfileMenu />

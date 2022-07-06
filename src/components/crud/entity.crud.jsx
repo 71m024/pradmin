@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
-// eslint-disable-next-line import/no-cycle
-import MiniDrawer from '../mini-drawer';
 import StatusSnackbar from '../status-snackbar';
 
-export default function EntityCrud({ listComponent, newComponent, editComponent }) {
+export default function EntityCrud({
+  listComponent, newComponent, editComponent, drawer,
+}) {
   return (
     <>
-      <MiniDrawer />
+      {drawer}
       <StatusSnackbar />
       <Routes>
         <Route

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,9 +11,9 @@ import Typography from '@mui/material/Typography';
 import { Navigate } from 'react-router-dom';
 import Copyright from './copyright';
 import AuthService from '../service/auth.service';
-import {ServiceContext} from "../index";
+import { ServiceContext } from '../index';
 
-export default function Login() {
+export default function Login({ company }) {
   const [user, setUser] = useState(AuthService.getCurrentUser);
   const { authService } = useContext(ServiceContext);
 
@@ -84,7 +84,7 @@ export default function Login() {
           </Button>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Copyright company={company} />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Navigate, Route, Routes, useLocation, useRoutes
+  Navigate, Route, Routes, useLocation, useRoutes,
 } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -19,17 +19,17 @@ function CrudContainer({ routes }) {
   const allRoutes = useRoutes([
     {
       index: true,
-      element: <Navigate to="/user" />
+      element: <Navigate to="/user" />,
     },
     {
       path: 'login',
-      element: <Login />
+      element: <Login company="eventpool" />,
     },
     {
       path: 'logout',
-      element: <Logout />
+      element: <Logout />,
     },
-    ...routes
+    ...routes,
   ]);
 
   return (
