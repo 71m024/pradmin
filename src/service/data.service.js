@@ -5,6 +5,14 @@ export default class DataService {
     this.entrypoint = entrypoint;
   }
 
+  static headers() {
+    return {
+      ...AuthService.authHeader(),
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    };
+  }
+
   static toJsonAndRejectNok(responsePromise) {
     return responsePromise.then(async (response) => {
       const responseData = await response.json();
@@ -16,7 +24,9 @@ export default class DataService {
   }
 
   getData(path) {
-    return fetch(this.entrypoint + path, { headers: AuthService.authHeader() })
+    return fetch(this.entrypoint + path, {
+      headers: this.constructor.headers()
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.code === 401) {
@@ -31,10 +41,7 @@ export default class DataService {
       fetch(this.entrypoint + path, {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-          ...AuthService.authHeader(),
-        },
+        headers: this.constructor.headers(),
       }),
     );
   }
@@ -44,10 +51,7 @@ export default class DataService {
       fetch(this.entrypoint + path, {
         method: 'PUT',
         body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-          ...AuthService.authHeader(),
-        },
+        headers: this.constructor.headers(),
       }),
     );
   }
@@ -55,10 +59,7 @@ export default class DataService {
   deleteData(path) {
     return fetch(this.entrypoint + path, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        ...AuthService.authHeader(),
-      },
+      headers: this.constructor.headers(),
     });
   }
 }
