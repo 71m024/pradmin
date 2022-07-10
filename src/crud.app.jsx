@@ -19,7 +19,7 @@ function CrudContainer({ routes }) {
   const allRoutes = useRoutes([
     {
       index: true,
-      element: <Navigate to="/user" />,
+      element: <Navigate to="/users" />,
     },
     {
       path: 'login',
