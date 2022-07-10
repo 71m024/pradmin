@@ -4,9 +4,8 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useContext } from 'react';
-import { deleteData, postData, putData } from '../../service/data.service';
 import DataContext from './context/data.context';
+import ServiceContext from "./context/service.context";
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -15,13 +14,14 @@ const paperStyle = {
 export default function EntityForm({
   resource, children, cards,
 }) {
-  const [data] = useContext(DataContext);
+  const [data] = React.useContext(DataContext);
+  const { dataService } = React.useContext(ServiceContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const saveFunction = data.id ? putData : postData;
+    const saveFunction = (...args) => (data.id ? dataService.putData(...args) : dataService.postData(...args));
 
     saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
       .then(() => {
@@ -52,7 +52,7 @@ export default function EntityForm({
   };
 
   const handleDelete = () => {
-    deleteData(`${resource}/${data.id}`).then(() => navigate(`/${resource}`, {
+    dataService.deleteData(`${resource}/${data.id}`).then(() => navigate(`/${resource}`, {
       state: {
         message: {
           text: 'Eintrag gelöscht',
