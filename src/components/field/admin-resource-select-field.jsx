@@ -8,7 +8,7 @@ import ServiceContext from '../crud/context/service.context';
 export default function AdminResourceSelectField({
   name, label, resource, itemReferenceGetter,
 }) {
-  const [dataService] = useContext(ServiceContext);
+  const { dataService } = useContext(ServiceContext);
   const [data] = useContext(DataContext);
   const [values, setValues] = useState(null);
 
