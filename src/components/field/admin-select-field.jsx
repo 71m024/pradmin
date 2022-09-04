@@ -7,12 +7,19 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../crud/context/data.context';
 
 export default function AdminSelectField({
-  name, label, value, values, menuItemFactory,
+  name, label, value, setValue, values, menuItemFactory, handleInput,
 }) {
   const [data, setData] = useContext(DataContext);
 
   const handleSelectInput = (e) => {
-    setData({ ...data, [name]: e.target.value });
+    if (typeof setValue === 'function') {
+      setValue(e.target.value);
+    } else {
+      setData({ ...data, [name]: e.target.value });
+    }
+    if (typeof handleInput === 'function') {
+      handleInput();
+    }
   };
 
   const assembledLabel = label ?? toCapitalizedWords(name);
