@@ -5,14 +5,14 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../crud/context/data.context';
 
 export default function AdminTextField({
-  name, label, ...rest
+  name, label, numeric = false, inputProps, ...rest
 }) {
   const [data, setData] = useContext(DataContext);
 
   const handleInput = (e) => {
     const { name: targetName } = e.target;
     const newValue = e.target.value;
-    setData({ ...data, [targetName]: newValue });
+    setData({ ...data, [targetName]: numeric ? parseInt(newValue) : newValue });
   };
 
   return (
@@ -21,6 +21,7 @@ export default function AdminTextField({
       name={name}
       value={data[name] ?? ''}
       onChange={handleInput}
+      inputProps={{ ...inputProps, ...(numeric ? { inputMode: 'numeric' } : {})}}
       /* eslint-disable-next-line react/jsx-props-no-spreading */
       {...rest}
     />
