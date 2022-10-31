@@ -6,7 +6,7 @@ import DataContext from '../crud/context/data.context';
 import ServiceContext from '../crud/context/service.context';
 
 export default function AdminResourceSelectField({
-  name, label, resource, itemReferenceGetter,
+  name, label, resource, itemReferenceGetter, value, setValue,
 }) {
   const { dataService } = useContext(ServiceContext);
   const [data] = useContext(DataContext);
@@ -28,8 +28,9 @@ export default function AdminResourceSelectField({
       <AdminSelectField
         name={name}
         label={label}
-        value={data[name] ? (data[name].id ?? data[name]) : ''}
+        value={(value) || (data[name] ? (data[name].id ?? data[name]) : '')}
         values={values}
+        setValue={setValue}
         menuItemFactory={menuItemFactory}
       />
     );
