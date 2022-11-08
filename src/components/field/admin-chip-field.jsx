@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import DataContext from '../crud/context/data.context';
 
-export default function AdminChipField({ valueField }) {
+export default function AdminChipField({ valueField, showNewButton = true }) {
   const [data, setData] = useContext(DataContext);
   const [newChip, setNewChip] = useState('');
 
@@ -34,19 +34,24 @@ export default function AdminChipField({ valueField }) {
       {data[valueField].map((r) => (
         <Chip key={r} label={r} onDelete={handleDeleteChip(r)} style={chipStyle} />
       ))}
-      <TextField
-        label="New"
-        onChange={updateNewChip}
-        size="small"
-        value={newChip}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
-            handleAddChip();
-            e.preventDefault();
-          }
-        }}
-      />
-      <Button onClick={handleAddChip}>Add</Button>
+      {showNewButton
+          && (
+          <>
+            <TextField
+              label="New"
+              onChange={updateNewChip}
+              size="small"
+              value={newChip}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  handleAddChip();
+                  e.preventDefault();
+                }
+              }}
+            />
+            <Button onClick={handleAddChip}>Add</Button>
+          </>
+          )}
     </Stack>
   );
 }
