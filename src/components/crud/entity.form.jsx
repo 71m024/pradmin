@@ -40,14 +40,6 @@ export default function EntityForm({
       })
       .catch((error) => {
         console.error('Error:', error);
-        navigate(`/${resource}`, {
-          state: {
-            message: {
-              text: data.id ? 'Bearbeiten ist fehlgeschlagen' : 'Erstellung ist fehlgeschlagen',
-              severity: 'error',
-            },
-          },
-        });
       });
   };
 
