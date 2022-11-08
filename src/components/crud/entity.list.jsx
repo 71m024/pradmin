@@ -12,7 +12,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import ServiceContext from './context/service.context';
 
 export default function EntityList({
-  resource, label, columns, additionalButtons,
+  resource, label, columns, additionalButtons, initialState = {},
 }) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -93,6 +93,7 @@ export default function EntityList({
         <TableContainer component={Paper}>
           <div>
             <DataGrid
+              initialState={initialState}
               rows={data}
               onRowDoubleClick={rowClickHandler}
               onSelectionModelChange={rowSelectionHandler}
