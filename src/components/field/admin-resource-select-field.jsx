@@ -6,7 +6,7 @@ import DataContext from '../crud/context/data.context';
 import ServiceContext from '../crud/context/service.context';
 
 export default function AdminResourceSelectField({
-  name, label, resource, itemReferenceGetter,
+  name, label, resource, itemReferenceGetter, value, setValue, comparator,
 }) {
   const { dataService } = useContext(ServiceContext);
   const [data] = useContext(DataContext);
@@ -24,12 +24,16 @@ export default function AdminResourceSelectField({
     : (v) => <MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>;
 
   if (values) {
+    if (comparator) {
+      values.sort(comparator);
+    }
     return (
       <AdminSelectField
         name={name}
         label={label}
-        value={data[name] ? (data[name].id ?? data[name]) : ''}
+        value={(value) || (data[name] ? (data[name].id ?? data[name]) : '')}
         values={values}
+        setValue={setValue}
         menuItemFactory={menuItemFactory}
       />
     );

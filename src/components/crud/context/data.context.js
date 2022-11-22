@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const ServiceContext = createContext(null);
+const DataContext = createContext(null);
 
-export default ServiceContext;
+export default DataContext;

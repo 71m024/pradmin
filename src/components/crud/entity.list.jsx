@@ -11,7 +11,9 @@ import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
 import ServiceContext from './context/service.context';
 
-export default function EntityList({ resource, label, columns }) {
+export default function EntityList({
+  resource, label, columns, additionalButtons, initialState = {},
+}) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState([]);
   const { dataService } = React.useContext(ServiceContext);
@@ -80,6 +82,7 @@ export default function EntityList({ resource, label, columns }) {
 &nbsp; Löschen
                 </Button>
               )}
+            {additionalButtons}
             <Button component={Link} variant="contained" to={`/${resource}/new`}>
               <AddIcon />
               {' '}
@@ -90,6 +93,7 @@ export default function EntityList({ resource, label, columns }) {
         <TableContainer component={Paper}>
           <div>
             <DataGrid
+              initialState={initialState}
               rows={data}
               onRowDoubleClick={rowClickHandler}
               onSelectionModelChange={rowSelectionHandler}
