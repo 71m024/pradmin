@@ -1,6 +1,6 @@
 export default class AuthService {
-  constructor(entrypoint) {
-    this.entrypoint = entrypoint;
+  constructor() {
+    this.entrypoint = process.env.ENTRYPOINT;
   }
 
   login(email, password) {

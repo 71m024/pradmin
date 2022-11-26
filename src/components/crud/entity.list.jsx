@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
-import ServiceContext from './context/service.context';
+import ServiceContext from '../../context/service.context';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,

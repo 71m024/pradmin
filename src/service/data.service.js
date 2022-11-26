@@ -1,15 +1,15 @@
 import AuthService from './auth.service';
 
 export default class DataService {
-  constructor(entrypoint) {
-    this.entrypoint = entrypoint;
+  constructor() {
+    this.entrypoint = process.env.ENTRYPOINT;
   }
 
   static headers() {
     return {
       ...AuthService.authHeader(),
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     };
   }
 
@@ -25,7 +25,7 @@ export default class DataService {
 
   getData(path) {
     return fetch(this.entrypoint + path, {
-      headers: this.constructor.headers()
+      headers: this.constructor.headers(),
     })
       .then((response) => response.json())
       .then((data) => {
