@@ -1,5 +1,6 @@
 import { createContext, React, useMemo } from 'react';
-import { AuthService, DataService } from '../index';
+import DataService from '../service/data.service';
+import AuthService from '../service/auth.service';
 
 export const ServiceContext = createContext(null);
 export function ServiceContextProvider({ children }) {
