@@ -12,8 +12,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import ServiceContext from './context/service.context';
 
 export default function EntityList({
-  resource, label, columns, additionalButtons, initialState = {}, disableColumnFilter = true,
-  disableColumnSelector = true, disableDensitySelector = true, enableSearch = true,
+  resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
 }) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -110,9 +109,9 @@ export default function EntityList({
                   </Button>
                 ),
               }]}
-              disableColumnFilter={disableColumnFilter}
-              disableColumnSelector={disableColumnSelector}
-              disableDensitySelector={disableDensitySelector}
+              disableColumnFilter={enableSearch}
+              disableColumnSelector={enableSearch}
+              disableDensitySelector={enableSearch}
               components={enableSearch ? { Toolbar: GridToolbar } : {}}
               componentsProps={enableSearch ? {
                 toolbar: {
