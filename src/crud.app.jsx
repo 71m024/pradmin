@@ -8,7 +8,6 @@ export default function CrudApp() {
     <AppContextProvider>
       <Container component="main">
         <CssBaseline />
-        {routes}
       </Container>
     </AppContextProvider>
   );

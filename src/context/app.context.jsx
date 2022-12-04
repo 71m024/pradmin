@@ -4,9 +4,9 @@ import { NotificationProvider } from './notification.context';
 import { ServiceContextProvider } from './service.context';
 import RoutingProvider from './routing.context';
 
-export default combineComponents([
+export default () => combineComponents(
   RoutingProvider,
   ServiceContextProvider,
   ColorModeProvider,
   NotificationProvider,
-]);
+);
