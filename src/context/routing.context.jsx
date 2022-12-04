@@ -10,7 +10,7 @@ export default function RoutingProvider({ children }) {
     return <Navigate push to="/login" />;
   }
 
-  useRoutes([
+  const allRoutes = useRoutes([
     {
       index: true,
       element: <Navigate to="/users" />,
@@ -26,5 +26,10 @@ export default function RoutingProvider({ children }) {
     ...customRoutes,
   ]);
 
-  return children;
+  return (
+    <>
+      {children}
+      {allRoutes}
+    </>
+  );
 }
