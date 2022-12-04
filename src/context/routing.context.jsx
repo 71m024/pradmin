@@ -1,11 +1,9 @@
-import { React } from 'react';
-import {
-  BrowserRouter, Navigate, useLocation, useRoutes,
-} from 'react-router-dom';
-import AuthService from '../service/auth.service';
-import customRoutes from '/src/config/routes';
+import * as React from 'react';
+import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 import Login from '../ui/login';
 import Logout from '../ui/logout';
+import AuthService from '../service/auth.service';
+import customRoutes from '/src/config/routes';
 
 export default function RoutingProvider({ children }) {
   if (useLocation().pathname !== '/login' && !AuthService.getCurrentUser()) {
@@ -28,7 +26,5 @@ export default function RoutingProvider({ children }) {
     ...customRoutes,
   ]);
 
-  return (
-    <BrowserRouter>{children}</BrowserRouter>
-  );
+  return children;
 }

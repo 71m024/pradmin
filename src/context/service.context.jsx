@@ -1,4 +1,5 @@
-import { createContext, React, useMemo } from 'react';
+import * as React from 'react';
+import { createContext, useMemo } from 'react';
 import DataService from '../service/data.service';
 import AuthService from '../service/auth.service';
 
