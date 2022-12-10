@@ -10,5 +10,4 @@ export default () => combineComponents(
   RoutingProvider,
   ServiceContextProvider,
   ColorModeProvider,
-  NotificationProvider,
 );

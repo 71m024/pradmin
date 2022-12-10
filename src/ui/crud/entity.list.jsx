@@ -9,27 +9,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
-import ServiceContext from '../../context/service.context';
+import { ServiceContext } from '../../context/service.context';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
 }) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState([]);
-  const { dataService } = React.useContext(ServiceContext);
+  const services = React.useContext(ServiceContext);
   const [data, setData] = React.useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
 
   const loadData = () => {
-    dataService.getData(resource)
+    services.dataService.getData(resource)
       .then((response) => setData((response)));
   };
 
   React.useEffect(() => {
-    if (dataService) {
+    if (services) {
       loadData();
     }
-  }, [dataService]);
+  }, [services]);
 
   const rowClickHandler = (rowParams) => {
     navigate(`/${resource}/${rowParams.row.id}`);
