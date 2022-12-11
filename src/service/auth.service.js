@@ -1,6 +1,6 @@
 export default class AuthService {
   constructor() {
-    this.entrypoint = process.env.ENTRYPOINT;
+    this.entrypoint = process.env.REACT_APP_ENTRYPOINT;
   }
 
   login(email, password) {

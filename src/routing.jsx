@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
-import Login from '../ui/login';
-import Logout from '../ui/logout';
-import AuthService from '../service/auth.service';
+import { Container, CssBaseline } from '@mui/material';
+import Login from './ui/login';
+import Logout from './ui/logout';
+import AuthService from './service/auth.service';
 import customRoutes from '/src/config/routes';
 
-export default function RoutingProvider({ children }) {
+export default function Routing() {
   if (useLocation().pathname !== '/login' && !AuthService.getCurrentUser()) {
     return <Navigate push to="/login" />;
   }
@@ -27,9 +28,9 @@ export default function RoutingProvider({ children }) {
   ]);
 
   return (
-    <>
-      {children}
+    <Container component="main">
+      <CssBaseline />
       {allRoutes}
-    </>
+    </Container>
   );
 }

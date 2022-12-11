@@ -2,7 +2,7 @@ import AuthService from './auth.service';
 
 export default class DataService {
   constructor() {
-    this.entrypoint = process.env.ENTRYPOINT;
+    this.entrypoint = process.env.REACT_APP_ENTRYPOINT;
   }
 
   static headers() {
