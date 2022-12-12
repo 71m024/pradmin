@@ -3,7 +3,7 @@ import {
   Button, Grid, Paper, Stack, TableContainer,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,7 +12,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import ServiceContext from './context/service.context';
 
 export default function EntityList({
-  resource, label, columns, additionalButtons, initialState = {},
+  resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
 }) {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = React.useState([]);
@@ -109,6 +109,16 @@ export default function EntityList({
                   </Button>
                 ),
               }]}
+              disableColumnFilter={enableSearch}
+              disableColumnSelector={enableSearch}
+              disableDensitySelector={enableSearch}
+              components={enableSearch ? { Toolbar: GridToolbar } : {}}
+              componentsProps={enableSearch ? {
+                toolbar: {
+                  showQuickFilter: true,
+                  quickFilterProps: { debounceMs: 500 },
+                },
+              } : {}}
             />
           </div>
         </TableContainer>
