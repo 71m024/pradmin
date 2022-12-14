@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import DataContext from './context/data.context';
+import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 
 export default function EntityEdit({ resource, children }) {

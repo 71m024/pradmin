@@ -1,5 +1,5 @@
 import { Copyright, Login, Logout } from '@mui/icons-material';
-import DataContext from './ui/crud/context/data.context';
+import DataContext from './context/data.context';
 import { ServiceContext } from './context/service.context';
 import { NotificationContext } from './context/notification.context';
 import EntityCrud from './ui/crud/entity.crud';

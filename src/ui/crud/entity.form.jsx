@@ -4,8 +4,8 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DataContext from './context/data.context';
-import ServiceContext from '../../context/service.context';
+import DataContext from '../../context/data.context';
+import { ServiceContext } from '../../context/service.context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -21,7 +21,8 @@ export default function EntityForm({
   const getSubmitHandler = (back = false) => (e) => {
     e.preventDefault();
 
-    const saveFunction = (...args) => (data.id ? dataService.putData(...args) : dataService.postData(...args));
+    const saveFunction = (...args) => (data.id ? dataService.putData(...args)
+      : dataService.postData(...args));
 
     saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
       .then(() => {

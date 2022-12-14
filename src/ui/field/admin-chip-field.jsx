@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import {
   Button, Chip, Stack, TextField,
 } from '@mui/material';
-import DataContext from '../crud/context/data.context';
+import DataContext from '../../context/data.context';
 
 export default function AdminChipField({ valueField, showNewButton = true }) {
   const [data, setData] = useContext(DataContext);
