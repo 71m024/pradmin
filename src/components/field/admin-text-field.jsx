@@ -14,7 +14,8 @@ export default function AdminTextField({
     const newValue = e.target.value;
     setData({
       ...data,
-      [targetName]: (newValue.match('[0-9]+')) ? parseInt(newValue) : newValue});
+      [targetName]: ((newValue.match('^[0-9]+$')) ? parseInt(newValue) : newValue),
+    });
   };
 
   return (
@@ -23,7 +24,7 @@ export default function AdminTextField({
       name={name}
       value={data[name] ?? ''}
       onChange={handleInput}
-      inputProps={{ ...inputProps, ...(numeric ? { inputMode: 'numeric' } : {})}}
+      inputProps={{ ...inputProps, ...(numeric ? { inputMode: 'numeric' } : {}) }}
       /* eslint-disable-next-line react/jsx-props-no-spreading */
       {...rest}
     />
