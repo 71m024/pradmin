@@ -4,8 +4,10 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useContext } from 'react';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
+import { NotificationContext } from '../../context/notification.context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -17,6 +19,14 @@ export default function EntityForm({
   const [data] = React.useContext(DataContext);
   const { dataService } = React.useContext(ServiceContext);
   const navigate = useNavigate();
+  const { setNotificationState } = useContext(NotificationContext);
+
+  const successNotification = () => {
+    setNotificationState({
+      severity: 'success',
+      title: data.id ? 'Eintrag gespeichert' : 'Eintrag erstellt',
+    });
+  };
 
   const getSubmitHandler = (back = false) => (e) => {
     e.preventDefault();
@@ -28,17 +38,14 @@ export default function EntityForm({
       .then(() => {
         if (back) {
           setTimeout(
-            () => (
-              navigate(`/${resource}`, {
-                state: {
-                  message: {
-                    text: data.id ? 'Eintrag gespeichert' : 'Eintrag erstellt',
-                    severity: 'success',
-                  },
-                },
-              })),
+            () => {
+              navigate(`/${resource}`);
+              successNotification();
+            },
             data.id ? 500 : 1000, // otherwise, changes won't be displayed (server is too slow)
           );
+        } else {
+          successNotification();
         }
       })
       .catch((error) => {

@@ -14,7 +14,7 @@ import ColorModeSwitch from './ui/color-mode-switch';
 import ConfirmationDialog from './ui/confirmation-dialog';
 import MiniDrawer from './ui/mini-drawer';
 import ProfileMenu from './ui/profile-menu';
-import StatusSnackbar from './ui/status-snackbar';
+import NotificationSnackbar from './ui/notification-snackbar';
 import AuthService from './service/auth.service';
 import authHeader from './service/auth-header';
 import DataService from './service/data.service';
@@ -33,7 +33,7 @@ export {
   Logout,
   MiniDrawer,
   ProfileMenu,
-  StatusSnackbar,
+  NotificationSnackbar,
   AuthService, DataService,
   authHeader,
   capitalizeFirstLetter,

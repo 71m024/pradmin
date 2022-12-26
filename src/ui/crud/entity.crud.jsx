@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import StatusSnackbar from '../status-snackbar';
+import NotificationSnackbar from '../notification-snackbar';
 
 export default function EntityCrud({
   listComponent, newComponent, editComponent, drawer,
@@ -8,7 +8,7 @@ export default function EntityCrud({
   return (
     <>
       {drawer}
-      <StatusSnackbar />
+      <NotificationSnackbar />
       <Routes>
         <Route
           index
