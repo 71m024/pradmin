@@ -7,9 +7,11 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useContext } from 'react';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
 import { ServiceContext } from '../../context/service.context';
+import { NotificationContext } from '../../context/notification.context';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
@@ -19,6 +21,7 @@ export default function EntityList({
   const services = React.useContext(ServiceContext);
   const [data, setData] = React.useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const { setState: setNotificationState } = useContext(NotificationContext);
 
   const loadData = () => {
     services.dataService.getData(resource)
@@ -46,16 +49,13 @@ export default function EntityList({
   const handleDeleteConfirmed = () => {
     const promises = [];
     selectedRows.forEach((rowId) => {
-      promises.push(dataService.deleteData(`${resource}/${rowId}`));
+      promises.push(services.dataService.deleteData(`${resource}/${rowId}`));
     });
     Promise.all(promises).then(() => {
-      navigate(`/${resource}`, {
-        state: {
-          message: {
-            text: `${toCapitalizedWords(resource)} gelöscht`,
-            severity: 'success',
-          },
-        },
+      navigate(`/${resource}`);
+      setNotificationState({
+        title: `${toCapitalizedWords(resource)} gelöscht`,
+        severity: 'success',
       });
       setDeleteDialogOpen(false);
       loadData();

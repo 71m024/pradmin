@@ -19,7 +19,7 @@ export default function EntityForm({
   const [data] = React.useContext(DataContext);
   const { dataService } = React.useContext(ServiceContext);
   const navigate = useNavigate();
-  const { setNotificationState } = useContext(NotificationContext);
+  const { setState: setNotificationState } = useContext(NotificationContext);
 
   const successNotification = () => {
     setNotificationState({
@@ -54,14 +54,14 @@ export default function EntityForm({
   };
 
   const handleDelete = () => {
-    dataService.deleteData(`${resource}/${data.id}`).then(() => navigate(`/${resource}`, {
-      state: {
-        message: {
-          text: 'Eintrag gelöscht',
+    dataService.deleteData(`${resource}/${data.id}`)
+      .then(() => {
+        navigate(`/${resource}`);
+        setNotificationState({
+          title: 'Eintrag gelöscht',
           severity: 'success',
-        },
-      },
-    }));
+        });
+      });
   };
 
   if (data) {

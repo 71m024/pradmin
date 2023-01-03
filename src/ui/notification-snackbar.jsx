@@ -1,11 +1,10 @@
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { NotificationContext } from '../context/notification.context';
 
 export default function NotificationSnackbar() {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(null);
   const { state } = useContext(NotificationContext);
 
   const handleSnackbarClose = (event, reason) => {
@@ -14,6 +13,14 @@ export default function NotificationSnackbar() {
     }
     setSnackbarOpen(false);
   };
+
+  useEffect(() => {
+    if (snackbarOpen !== null) {
+      setSnackbarOpen(true);
+    } else {
+      setSnackbarOpen(false);
+    }
+  }, [state]);
 
   return (
     <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
