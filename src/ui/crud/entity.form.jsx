@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
+import errorHandler from '../../util/error-handler';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -48,9 +49,7 @@ export default function EntityForm({
           successNotification();
         }
       })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      .catch((error) => errorHandler(error, setNotificationState));
   };
 
   const handleDelete = () => {
@@ -61,7 +60,8 @@ export default function EntityForm({
           title: 'Eintrag gelöscht',
           severity: 'success',
         });
-      });
+      })
+      .catch((error) => errorHandler(error, setNotificationState));
   };
 
   if (data) {
@@ -76,9 +76,11 @@ export default function EntityForm({
           {cards && cards.map((c) => <Paper style={paperStyle} key={`card-${c.key}`}>{c}</Paper>)}
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
-              <Button variant="outlined" color="success" onClick={getSubmitHandler()}>
-                <SaveIcon />
-              </Button>
+              {data.id && (
+                <Button variant="outlined" color="success" onClick={getSubmitHandler()}>
+                  <SaveIcon />
+                </Button>
+              )}
               <Button variant="outlined" color="success" onClick={getSubmitHandler(true)}>
                 <SaveIcon /> &nbsp; Speichern und Schliessen
               </Button>

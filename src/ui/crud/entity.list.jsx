@@ -12,6 +12,7 @@ import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
+import errorHandler from '../../util/error-handler';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
@@ -51,15 +52,17 @@ export default function EntityList({
     selectedRows.forEach((rowId) => {
       promises.push(services.dataService.deleteData(`${resource}/${rowId}`));
     });
-    Promise.all(promises).then(() => {
-      navigate(`/${resource}`);
-      setNotificationState({
-        title: `${toCapitalizedWords(resource)} gelöscht`,
-        severity: 'success',
-      });
-      setDeleteDialogOpen(false);
-      loadData();
-    });
+    Promise.all(promises)
+      .then(() => {
+        navigate(`/${resource}`);
+        setNotificationState({
+          title: `${toCapitalizedWords(resource)} gelöscht`,
+          severity: 'success',
+        });
+        setDeleteDialogOpen(false);
+        loadData();
+      })
+      .catch((error) => errorHandler(error, setNotificationState));
   };
 
   if (data) {
