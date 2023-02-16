@@ -57,9 +57,11 @@ export default class DataService {
   }
 
   deleteData(path) {
-    return fetch(this.entrypoint + path, {
-      method: 'DELETE',
-      headers: this.constructor.headers(),
-    });
+    return this.constructor.toJsonAndRejectNok(
+      fetch(this.entrypoint + path, {
+        method: 'DELETE',
+        headers: this.constructor.headers(),
+      }),
+    );
   }
 }
