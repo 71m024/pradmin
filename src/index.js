@@ -10,6 +10,7 @@ import AdminChipField from './ui/field/admin-chip-field';
 import AdminResourceSelectField from './ui/field/admin-resource-select-field';
 import AdminSelectField from './ui/field/admin-select-field';
 import AdminTextField from './ui/field/admin-text-field';
+import AdminCheckboxField from './ui/field/admin-checkbox-field';
 import ColorModeSwitch from './ui/color-mode-switch';
 import ConfirmationDialog from './ui/confirmation-dialog';
 import MiniDrawer from './ui/mini-drawer';
@@ -25,7 +26,7 @@ import { ColorModeContext } from './context/color-mode.context';
 export {
   DataContext, ServiceContext, NotificationContext,
   EntityCrud, EntityEdit, EntityForm, EntityList,
-  AdminChipField, AdminResourceSelectField, AdminSelectField, AdminTextField,
+  AdminChipField, AdminResourceSelectField, AdminSelectField, AdminTextField, AdminCheckboxField,
   ColorModeSwitch,
   ConfirmationDialog,
   Copyright,
