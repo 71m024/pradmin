@@ -26,6 +26,12 @@ export function ColorModeProvider({ children }) {
   const theme = React.useMemo(
     () => createTheme({
       palette: {
+        primary: {
+          main: '#f07e00',
+        },
+        secondary: {
+          main: '#ffb74d',
+        },
         mode: mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : mode,
       },
     }),
