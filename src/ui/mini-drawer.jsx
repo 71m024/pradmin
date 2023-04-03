@@ -105,6 +105,12 @@ export default function MiniDrawer({ company }) {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
+          <img
+            src="./mw-logo.png"
+            alt="Logo"
+            height="22px"
+            style={{ paddingRight: '45px' }}
+          />
           <IconButton
             color="inherit"
             aria-label="open drawer"
