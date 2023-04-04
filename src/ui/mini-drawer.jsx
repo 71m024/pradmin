@@ -88,7 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ company }) {
+export default function MiniDrawer({ company, page }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -109,7 +109,7 @@ export default function MiniDrawer({ company }) {
             src="./mw-logo.png"
             alt="Logo"
             height="22px"
-            style={{ paddingRight: '45px' }}
+            style={{ paddingRight: '50px' }}
           />
           <IconButton
             color="inherit"
@@ -123,8 +123,11 @@ export default function MiniDrawer({ company }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ marginRight: 5 }}>
             {company}
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {page}
           </Typography>
           <ColorModeSwitch />
           <ProfileMenu />
