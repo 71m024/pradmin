@@ -108,12 +108,6 @@ export default function MiniDrawer() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <img
-            src="./mw-logo.png"
-            alt="Logo"
-            height="22px"
-            style={{ paddingRight: '50px' }}
-          />
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -126,6 +120,12 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
+          <img
+            src="./mw-logo.png"
+            alt="Logo"
+            height="22px"
+            style={{ paddingRight: '50px' }}
+          />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {state.title ? state.title : 'Shopify-Booqable'}
           </Typography>
