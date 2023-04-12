@@ -4,11 +4,12 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
 import errorHandler from '../../util/error-handler';
+import { PageContext } from '../../context/page.context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -21,6 +22,14 @@ export default function EntityForm({
   const { dataService } = React.useContext(ServiceContext);
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
+  const { setState: setPageState } = useContext(PageContext);
+
+  useEffect(() => {
+    setPageState({
+      title: data.name,
+    });
+    document.title = data.name;
+  }, []);
 
   const successNotification = () => {
     setNotificationState({

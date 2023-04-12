@@ -16,10 +16,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import ProfileMenu from './profile-menu';
 // eslint-disable-next-line import/no-cycle
 import ColorModeSwitch from './color-mode-switch';
 import menu from '/src/config/menu';
+import { PageContext } from '../context/page.context';
 
 const drawerWidth = 240;
 
@@ -88,9 +90,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ company, page }) {
+export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { state } = useContext(PageContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -123,11 +126,8 @@ export default function MiniDrawer({ company, page }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ marginRight: 5 }}>
-            {company}
-          </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {page}
+            {state.title ? state.title : 'Shopify-Booqable'}
           </Typography>
           <ColorModeSwitch />
           <ProfileMenu />

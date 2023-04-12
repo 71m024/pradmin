@@ -7,12 +7,13 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import ConfirmationDialog from '../confirmation-dialog';
 import { toCapitalizedWords } from '../../util/string-functions';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
 import errorHandler from '../../util/error-handler';
+import { PageContext } from '../../context/page.context';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
@@ -23,6 +24,14 @@ export default function EntityList({
   const [data, setData] = React.useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const { setState: setNotificationState } = useContext(NotificationContext);
+  const { setState: setPageState } = useContext(PageContext);
+
+  useEffect(() => {
+    setPageState({
+      title: label,
+    });
+    document.title = label;
+  }, []);
 
   const loadData = () => {
     services.dataService.getData(resource)
