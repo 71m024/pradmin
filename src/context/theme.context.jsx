@@ -9,6 +9,7 @@ export function ThemeContextProvider({ children }) {
   const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const storedColorMode = localStorage.getItem('preferredColorMode');
   const [mode, setMode] = React.useState(storedColorMode ?? 'system');
+  const [palette, setPalette] = React.useState({});
 
   const colorMode = React.useMemo(
     () => ({
@@ -26,12 +27,7 @@ export function ThemeContextProvider({ children }) {
   const theme = React.useMemo(
     () => createTheme({
       palette: {
-        primary: {
-          main: '#f07e00',
-        },
-        secondary: {
-          main: '#ffb74d',
-        },
+        ...palette,
         mode: mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : mode,
       },
     }),
@@ -39,7 +35,7 @@ export function ThemeContextProvider({ children }) {
   );
 
   return (
-    <ThemeContext.Provider value={colorMode}>
+    <ThemeContext.Provider value={{ ...colorMode, setPalette }}>
       <ThemeProvider theme={theme}>
         {children}
       </ThemeProvider>
