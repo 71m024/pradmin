@@ -30,7 +30,6 @@ export default function EntityList({
     setPageState({
       title: label,
     });
-    document.title = label;
   }, []);
 
   const loadData = () => {

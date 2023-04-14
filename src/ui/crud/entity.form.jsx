@@ -28,7 +28,6 @@ export default function EntityForm({
     setPageState({
       title: data.name,
     });
-    document.title = data.name;
   }, []);
 
   const successNotification = () => {

@@ -19,7 +19,6 @@ export default function EntityEdit({ resource, children }) {
           setPageState({
             title: response.name,
           });
-          document.title = response.name;
         });
     }
   }, [dataService]);
