@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ThemeContext = React.createContext({ toggleColorMode: () => {} });
 
-export function ColorModeProvider({ children }) {
+export function ThemeContextProvider({ children }) {
   const states = ['system', 'light', 'dark'];
   const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const storedColorMode = localStorage.getItem('preferredColorMode');
@@ -39,10 +39,10 @@ export function ColorModeProvider({ children }) {
   );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ThemeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         {children}
       </ThemeProvider>
-    </ColorModeContext.Provider>
+    </ThemeContext.Provider>
   );
 }

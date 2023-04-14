@@ -21,7 +21,7 @@ import authHeader from './service/auth-header';
 import DataService from './service/data.service';
 import { capitalizeFirstLetter, toCapitalizedWords } from './util/string-functions';
 import CrudApp from './crud.app';
-import { ColorModeContext } from './context/color-mode.context';
+import { ThemeContext } from './context/theme.context';
 
 export {
   DataContext, ServiceContext, NotificationContext,
@@ -39,6 +39,6 @@ export {
   authHeader,
   capitalizeFirstLetter,
   toCapitalizedWords,
-  ColorModeContext,
+  ThemeContext,
   CrudApp,
 };
