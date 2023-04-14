@@ -90,7 +90,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ logo }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { state } = useContext(PageContext);
@@ -120,12 +120,7 @@ export default function MiniDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            src="./mw-logo.png"
-            alt="Logo"
-            height="22px"
-            style={{ paddingRight: '50px' }}
-          />
+          {logo}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {state.title ? state.title : 'Shopify-Booqable'}
           </Typography>
