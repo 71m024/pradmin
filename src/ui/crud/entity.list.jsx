@@ -13,7 +13,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
 import errorHandler from '../../util/error-handler';
-import { PageContext } from '../../context/page.context';
+import { AppContext } from '../../context/app.context';
 
 export default function EntityList({
   resource, label, columns, additionalButtons, initialState = {}, enableSearch = true,
@@ -24,7 +24,7 @@ export default function EntityList({
   const [data, setData] = React.useState([]);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const { setState: setNotificationState } = useContext(NotificationContext);
-  const { setState: setPageState } = useContext(PageContext);
+  const { setState: setPageState } = useContext(AppContext);
 
   useEffect(() => {
     setPageState({

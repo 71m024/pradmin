@@ -9,7 +9,7 @@ import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
 import errorHandler from '../../util/error-handler';
-import { PageContext } from '../../context/page.context';
+import { AppContext } from '../../context/app.context';
 
 const paperStyle = {
   paddingTop: 20, paddingLeft: 30, paddingBottom: 20, paddingRight: 30,
@@ -22,7 +22,7 @@ export default function EntityForm({
   const { dataService } = React.useContext(ServiceContext);
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
-  const { setState: setPageState } = useContext(PageContext);
+  const { setState: setPageState } = useContext(AppContext);
 
   useEffect(() => {
     setPageState({

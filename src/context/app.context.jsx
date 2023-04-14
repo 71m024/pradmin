@@ -1,20 +1,18 @@
+import { createContext, useEffect, useState } from 'react';
 import * as React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { ThemeContextProvider } from './theme.context';
-import { ServiceContextProvider } from './service.context';
-import { NotificationProvider } from './notification.context';
-import { PageContextProvider } from './page.context';
 
-export default function ({ children }) {
+export const AppContext = createContext(null);
+
+export function AppContextProvider({ children }) {
+  const [state, setState] = useState({ title: 'Pradmin-App' });
+
+  useEffect(() => {
+    document.title = state.title;
+  });
+
   return (
-    <ServiceContextProvider>
-      <PageContextProvider>
-        <ThemeContextProvider>
-          <NotificationProvider>
-            <BrowserRouter>{children}</BrowserRouter>
-          </NotificationProvider>
-        </ThemeContextProvider>
-      </PageContextProvider>
-    </ServiceContextProvider>
+    <AppContext.Provider value={{ state, setState }}>
+      {children}
+    </AppContext.Provider>
   );
 }

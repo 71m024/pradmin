@@ -21,7 +21,7 @@ import ProfileMenu from './profile-menu';
 // eslint-disable-next-line import/no-cycle
 import ColorModeSwitch from './color-mode-switch';
 import menu from '/src/config/menu';
-import { PageContext } from '../context/page.context';
+import { AppContext } from '../context/app.context';
 
 const drawerWidth = 240;
 
@@ -93,7 +93,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer({ logo }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { state: appContext } = useContext(PageContext);
+  const { state: appContext } = useContext(AppContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
