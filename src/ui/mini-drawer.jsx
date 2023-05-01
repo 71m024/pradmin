@@ -22,6 +22,7 @@ import ProfileMenu from './profile-menu';
 import ColorModeSwitch from './color-mode-switch';
 import menu from '/src/config/menu';
 import { AppContext } from '../context/app.context';
+import { ThemeContext } from '../context/theme.context';
 
 const drawerWidth = 240;
 
@@ -90,10 +91,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({ logo }) {
+export default function MiniDrawer({ logo, darkLogo = logo }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { state: appContext } = useContext(AppContext);
+  const { colorMode } = useContext(ThemeContext);
+
+  const adaptedLogo = colorMode === 'light' ? (darkLogo) : logo;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -120,7 +124,7 @@ export default function MiniDrawer({ logo }) {
           >
             <MenuIcon />
           </IconButton>
-          {logo}
+          {adaptedLogo}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {appContext.title ? appContext.title : 'Shopify-Booqable'}
           </Typography>
