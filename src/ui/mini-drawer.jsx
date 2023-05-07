@@ -126,7 +126,7 @@ export default function MiniDrawer({ logo, darkLogo = logo }) {
           </IconButton>
           {adaptedLogo}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {appContext.title ? appContext.title : 'Shopify-Booqable'}
+            {appContext.title ? appContext.title : 'Pradmin App'}
           </Typography>
           <ColorModeSwitch />
           <ProfileMenu />
