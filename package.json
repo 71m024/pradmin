@@ -1,6 +1,6 @@
 {
   "name": "pradmin",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "react admin",
   "main": "dist/index.js",
   "privat": false,
