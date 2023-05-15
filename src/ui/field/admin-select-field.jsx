@@ -3,11 +3,12 @@ import {
   FormControl, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import { useContext } from 'react';
+import FormHelperText from '@mui/material/FormHelperText';
 import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../../context/data.context';
 
 export default function AdminSelectField({
-  name, label, value, setValue, values, menuItemFactory, handleInput,
+  name, label, value, setValue, values, menuItemFactory, handleInput, required = false,
 }) {
   const [data, setData] = useContext(DataContext);
 
@@ -41,6 +42,9 @@ export default function AdminSelectField({
           )
         }
       </Select>
+      {required
+          && value === ''
+          && <FormHelperText>Diese Feld muss ausgefüllt sein.</FormHelperText>}
     </FormControl>
   );
 }
