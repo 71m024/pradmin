@@ -2,18 +2,20 @@ import * as React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+export const ThemeContext = React.createContext({ toggleColorMode: () => {} });
 
-export function ColorModeProvider({ children }) {
+export function ThemeContextProvider({ children }) {
   const states = ['system', 'light', 'dark'];
   const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
   const storedColorMode = localStorage.getItem('preferredColorMode');
-  const [mode, setMode] = React.useState(storedColorMode ?? 'system');
+  const [colorMode, setColorMode] = React.useState(storedColorMode ?? 'system');
+  const [palette, setPalette] = React.useState({});
+  const normalizedColorMode = colorMode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : colorMode;
 
-  const colorMode = React.useMemo(
+  const toggleColorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((m) => {
+        setColorMode((m) => {
           const selectedMode = states[(states.indexOf(m) + 1) % 3];
           localStorage.setItem('preferredColorMode', selectedMode);
           return selectedMode;
@@ -26,17 +28,20 @@ export function ColorModeProvider({ children }) {
   const theme = React.useMemo(
     () => createTheme({
       palette: {
-        mode: mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : mode,
+        ...palette,
+        mode: normalizedColorMode,
       },
     }),
-    [mode, systemPrefersDark],
+    [colorMode, systemPrefersDark, palette],
   );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ThemeContext.Provider
+      value={{ ...toggleColorMode, colorMode: normalizedColorMode, setPalette }}
+    >
       <ThemeProvider theme={theme}>
         {children}
       </ThemeProvider>
-    </ColorModeContext.Provider>
+    </ThemeContext.Provider>
   );
 }

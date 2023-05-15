@@ -4,10 +4,10 @@ import { IconButton } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import BrightnessAutoIcon from '@mui/icons-material/BrightnessAuto';
-import { ColorModeContext } from '../context/color-mode.context';
+import { ThemeContext } from '../context/theme.context';
 
 export default function ColorModeSwitch() {
-  const colorMode = useContext(ColorModeContext);
+  const colorMode = useContext(ThemeContext);
 
   const storedMode = localStorage.getItem('preferredColorMode');
 

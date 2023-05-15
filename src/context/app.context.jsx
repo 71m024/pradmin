@@ -1,17 +1,18 @@
+import { createContext, useEffect, useState } from 'react';
 import * as React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { ColorModeProvider } from './color-mode.context';
-import { ServiceContextProvider } from './service.context';
-import { NotificationProvider } from './notification.context';
 
-export default function ({ children }) {
+export const AppContext = createContext(null);
+
+export function AppContextProvider({ children }) {
+  const [state, setState] = useState({ title: 'Pradmin-App' });
+
+  useEffect(() => {
+    document.title = state.title;
+  });
+
   return (
-    <ServiceContextProvider>
-      <ColorModeProvider>
-        <NotificationProvider>
-          <BrowserRouter>{children}</BrowserRouter>
-        </NotificationProvider>
-      </ColorModeProvider>
-    </ServiceContextProvider>
+    <AppContext.Provider value={{ state, setState }}>
+      {children}
+    </AppContext.Provider>
   );
 }

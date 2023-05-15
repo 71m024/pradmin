@@ -1,11 +1,12 @@
 import * as React from 'react';
-import AppContextProvider from './context/app.context';
 import Routing from './routing';
+import ContextWrapper from './context/context-wrapper';
 
-export default function CrudApp() {
+export default function CrudApp({ Config }) {
   return (
-    <AppContextProvider>
+    <ContextWrapper>
       <Routing />
-    </AppContextProvider>
+      <Config />
+    </ContextWrapper>
   );
 }

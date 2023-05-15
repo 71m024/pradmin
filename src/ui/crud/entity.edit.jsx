@@ -3,17 +3,22 @@ import { useParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
+import { AppContext } from '../../context/app.context';
 
 export default function EntityEdit({ resource, children }) {
   const { id } = useParams();
   const { dataService } = useContext(ServiceContext);
   const [data, setData] = useState(null);
+  const { setState: setPageState } = useContext(AppContext);
 
   useEffect(() => {
     if (dataService) {
       dataService.getData(`${resource}/${id}`)
         .then((response) => {
           setData(response);
+          setPageState({
+            title: response.name,
+          });
         });
     }
   }, [dataService]);
