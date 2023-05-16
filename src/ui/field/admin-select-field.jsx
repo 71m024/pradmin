@@ -26,7 +26,7 @@ export default function AdminSelectField({
   const assembledLabel = label ?? toCapitalizedWords(name);
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth required>
       <InputLabel>{assembledLabel}</InputLabel>
       <Select
         name={name}
@@ -42,9 +42,6 @@ export default function AdminSelectField({
           )
         }
       </Select>
-      {required
-          && value === ''
-          && <FormHelperText>Diese Feld muss ausgefüllt sein.</FormHelperText>}
     </FormControl>
   );
 }
