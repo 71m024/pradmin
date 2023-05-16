@@ -85,11 +85,11 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button variant="outlined" color="success" onClick={getSubmitHandler()}>
+                <Button variant="outlined" color="success" onClick={getSubmitHandler()} type="submit">
                   <SaveIcon />
                 </Button>
               )}
-              <Button variant="outlined" color="success" onClick={getSubmitHandler(true)}>
+              <Button variant="outlined" color="success" onClick={getSubmitHandler(true)} type="submit">
                 <SaveIcon /> &nbsp; Speichern und Schliessen
               </Button>
               <Button component={Link} to={`/${resource}`} variant="outlined" color="primary">
