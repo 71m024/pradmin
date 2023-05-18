@@ -4,9 +4,8 @@ import { Container, CssBaseline } from '@mui/material';
 import Login from './ui/login';
 import Logout from './ui/logout';
 import AuthService from './service/auth.service';
-import customRoutes from '/src/config/routes';
 
-export default function Routing() {
+export default function Routing({ routes }) {
   if (useLocation().pathname !== '/login' && !AuthService.getCurrentUser()) {
     return <Navigate push to="/login" />;
   }
@@ -24,7 +23,7 @@ export default function Routing() {
       path: 'logout',
       element: <Logout />,
     },
-    ...customRoutes,
+    ...routes,
   ]);
 
   return (
