@@ -5,11 +5,11 @@ export default class DataService {
     this.entrypoint = process.env.REACT_APP_ENTRYPOINT;
   }
 
-  static headers() {
+  static headers(raw = false) {
     return {
       ...AuthService.authHeader(),
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      ...(raw ? {} : { 'Content-Type': 'application/json' }),
     };
   }
 
@@ -36,12 +36,12 @@ export default class DataService {
       });
   }
 
-  postData(path, data) {
+  postData(path, data, raw = false) {
     return this.constructor.toJsonAndRejectNok(
       fetch(this.entrypoint + path, {
         method: 'POST',
-        body: JSON.stringify(data),
-        headers: this.constructor.headers(),
+        body: raw ? data : JSON.stringify(data),
+        headers: this.constructor.headers(raw),
       }),
     );
   }
