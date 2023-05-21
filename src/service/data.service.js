@@ -13,31 +13,29 @@ export default class DataService {
     };
   }
 
-  static toJsonAndRejectNok(responsePromise) {
+  static handleRequestPromise(responsePromise) {
     return responsePromise.then(async (response) => {
       const responseData = await response.json();
+      if (response.status === 401) {
+        AuthService.logout();
+      }
       if (!response.ok) {
         return Promise.reject(responseData);
       }
-      return response;
+      return responseData;
     });
   }
 
   getData(path) {
-    return fetch(this.entrypoint + path, {
-      headers: this.constructor.headers(),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.code === 401) {
-          AuthService.logout();
-        }
-        return data;
-      });
+    return this.constructor.handleRequestPromise(
+      fetch(this.entrypoint + path, {
+        headers: this.constructor.headers(),
+      }),
+    );
   }
 
   postData(path, data, raw = false) {
-    return this.constructor.toJsonAndRejectNok(
+    return this.constructor.handleRequestPromise(
       fetch(this.entrypoint + path, {
         method: 'POST',
         body: raw ? data : JSON.stringify(data),
@@ -47,7 +45,7 @@ export default class DataService {
   }
 
   putData(path, data) {
-    return this.constructor.toJsonAndRejectNok(
+    return this.constructor.handleRequestPromise(
       fetch(this.entrypoint + path, {
         method: 'PUT',
         body: JSON.stringify(data),
@@ -57,7 +55,7 @@ export default class DataService {
   }
 
   deleteData(path) {
-    return this.constructor.toJsonAndRejectNok(
+    return this.constructor.handleRequestPromise(
       fetch(this.entrypoint + path, {
         method: 'DELETE',
         headers: this.constructor.headers(),
