@@ -27,6 +27,8 @@ export default function EntityForm({
 
   const { handleSubmit } = useForm();
 
+  const onSubmit = (inputData) => console.log(inputData);
+
   useEffect(() => {
     setPageState({
       title: data.name,
@@ -77,7 +79,7 @@ export default function EntityForm({
 
   if (data) {
     return (
-      <form onSubmit={handleSubmit(getSubmitHandler(false))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <Paper style={paperStyle} key="main-card">
             <Stack spacing={2}>
@@ -88,7 +90,7 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button name="saveAndStay" variant="outlined" color="success" type="submit">
+                <Button variant="outlined" color="success" type="submit">
                   <SaveIcon />
                 </Button>
               )}

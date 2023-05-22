@@ -13,7 +13,7 @@ export default function AdminResourceSelectField({
   const [data] = useContext(DataContext);
   const [values, setValues] = useState(null);
   const { register } = useForm();
-  const { ref: inputRef, ...inputProps } = register(name, {
+  const { ref: inputRef, ...inputProps } = register('selection', {
     required: 'Dieses Feld darf nicht leer sein!',
   });
 
