@@ -8,9 +8,10 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../../context/data.context';
 
 export default function AdminSelectField({
-  name, label, value, setValue, values, menuItemFactory, handleInput, required = false,
+  name, label, value, setValue, values, menuItemFactory, handleInput,
 }) {
   const [data, setData] = useContext(DataContext);
+  const [helperText, setHelperText] = React.useState('');
 
   const handleSelectInput = (e) => {
     if (typeof setValue === 'function') {
@@ -42,6 +43,7 @@ export default function AdminSelectField({
           )
         }
       </Select>
+      <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
   );
 }

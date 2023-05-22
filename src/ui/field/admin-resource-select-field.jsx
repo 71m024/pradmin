@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { MenuItem } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import AdminSelectField from './admin-select-field';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
@@ -11,6 +12,10 @@ export default function AdminResourceSelectField({
   const { dataService } = useContext(ServiceContext);
   const [data] = useContext(DataContext);
   const [values, setValues] = useState(null);
+  const { register } = useForm();
+  const { ref: inputRef, ...inputProps } = register(name, {
+    required: 'Dieses Feld darf nicht leer sein!',
+  });
 
   useEffect(() => {
     dataService.getData(resource)
@@ -35,6 +40,9 @@ export default function AdminResourceSelectField({
         values={values}
         setValue={setValue}
         menuItemFactory={menuItemFactory}
+        inputRef={inputRef}
+        /* eslint-disable-next-line react/jsx-props-no-spreading */
+        {...inputProps}
         required
       />
     );

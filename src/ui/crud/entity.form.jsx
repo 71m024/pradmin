@@ -5,6 +5,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
@@ -23,6 +24,8 @@ export default function EntityForm({
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
   const { setState: setPageState } = useContext(AppContext);
+
+  const { handleSubmit } = useForm();
 
   useEffect(() => {
     setPageState({
@@ -74,7 +77,7 @@ export default function EntityForm({
 
   if (data) {
     return (
-      <form>
+      <form onSubmit={handleSubmit(getSubmitHandler(false))}>
         <Stack spacing={2}>
           <Paper style={paperStyle} key="main-card">
             <Stack spacing={2}>
@@ -85,11 +88,11 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button variant="outlined" color="success" onClick={getSubmitHandler()} type="submit">
+                <Button name="saveAndStay" variant="outlined" color="success" type="submit">
                   <SaveIcon />
                 </Button>
               )}
-              <Button variant="outlined" color="success" onClick={getSubmitHandler(true)} type="submit">
+              <Button variant="outlined" color="success" onClick={getSubmitHandler(true)}>
                 <SaveIcon /> &nbsp; Speichern und Schliessen
               </Button>
               <Button component={Link} to={`/${resource}`} variant="outlined" color="primary">
