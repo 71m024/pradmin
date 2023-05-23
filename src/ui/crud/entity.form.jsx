@@ -5,7 +5,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useContext, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
@@ -25,15 +24,16 @@ export default function EntityForm({
   const { setState: setNotificationState } = useContext(NotificationContext);
   const { setState: setPageState } = useContext(AppContext);
 
-  const { handleSubmit } = useForm();
-
-  const onSubmit = (inputData) => console.log(inputData);
-
   useEffect(() => {
     setPageState({
       title: data.name,
     });
   }, []);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log('form submit');
+  };
 
   const successNotification = () => {
     setNotificationState({
@@ -79,7 +79,7 @@ export default function EntityForm({
 
   if (data) {
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <Stack spacing={2}>
           <Paper style={paperStyle} key="main-card">
             <Stack spacing={2}>
