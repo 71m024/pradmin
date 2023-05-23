@@ -4,7 +4,7 @@ import * as React from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 import { NotificationContext } from '../../context/notification.context';
@@ -23,17 +23,14 @@ export default function EntityForm({
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
   const { setState: setPageState } = useContext(AppContext);
+  const saveRef = useRef(null);
+  const saveAndBackRef = useRef(null);
 
   useEffect(() => {
     setPageState({
       title: data.name,
     });
   }, []);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log('form submit');
-  };
 
   const successNotification = () => {
     setNotificationState({
@@ -42,15 +39,22 @@ export default function EntityForm({
     });
   };
 
-  const getSubmitHandler = (back = false) => (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     const saveFunction = (...args) => (data.id ? dataService.putData(...args)
       : dataService.postData(...args));
 
-    saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
-      .then(() => {
-        if (back) {
+    if (e.nativeEvent.submitter === saveRef.current) {
+      saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
+        .then(() => {
+          successNotification();
+        })
+        .catch((error) => errorHandler(error, setNotificationState));
+    }
+    if (e.nativeEvent.submitter === saveAndBackRef.current) {
+      saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
+        .then(() => {
           setTimeout(
             () => {
               navigate(`/${resource}`);
@@ -58,11 +62,9 @@ export default function EntityForm({
             },
             data.id ? 500 : 1000, // otherwise, changes won't be displayed (server is too slow)
           );
-        } else {
-          successNotification();
-        }
-      })
-      .catch((error) => errorHandler(error, setNotificationState));
+        })
+        .catch((error) => errorHandler(error, setNotificationState));
+    }
   };
 
   const handleDelete = () => {
@@ -90,11 +92,11 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button variant="outlined" color="success" type="submit">
+                <Button variant="outlined" color="success" type="submit" ref={saveRef}>
                   <SaveIcon />
                 </Button>
               )}
-              <Button variant="outlined" color="success" onClick={getSubmitHandler(true)}>
+              <Button variant="outlined" color="success" type="submit" ref={saveAndBackRef}>
                 <SaveIcon /> &nbsp; Speichern und Schliessen
               </Button>
               <Button component={Link} to={`/${resource}`} variant="outlined" color="primary">
