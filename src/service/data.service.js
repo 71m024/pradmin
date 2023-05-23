@@ -13,9 +13,12 @@ export default class DataService {
     };
   }
 
-  static handleRequestPromise(responsePromise) {
+  static handleRequestPromise(responsePromise, parseJson = true) {
     return responsePromise.then(async (response) => {
-      const responseData = await response.json();
+      let responseData = response;
+      if (parseJson) {
+        responseData = await response.json();
+      }
       if (response.status === 401) {
         AuthService.logout();
       }
@@ -55,11 +58,9 @@ export default class DataService {
   }
 
   deleteData(path) {
-    return this.constructor.handleRequestPromise(
-      fetch(this.entrypoint + path, {
-        method: 'DELETE',
-        headers: this.constructor.headers(),
-      }),
-    );
+    return this.constructor.handleRequestPromise(fetch(this.entrypoint + path, {
+      method: 'DELETE',
+      headers: this.constructor.headers(),
+    }), false);
   }
 }
