@@ -6,7 +6,7 @@ import DataContext from '../../context/data.context';
 import { ServiceContext } from '../../context/service.context';
 
 export default function AdminResourceSelectField({
-  name, label, resource, itemReferenceGetter, value, setValue, comparator, required,
+  name, label, resource, itemReferenceGetter, value, setValue, comparator, required = false,
 }) {
   const { dataService } = useContext(ServiceContext);
   const [data] = useContext(DataContext);
