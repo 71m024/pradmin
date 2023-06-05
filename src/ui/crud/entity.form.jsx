@@ -23,8 +23,8 @@ export default function EntityForm({
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
   const { setState: setPageState } = useContext(AppContext);
-  const saveRef = useRef(null);
-  const saveAndBackRef = useRef(null);
+  const saveButton = useRef(null);
+  const saveAndBackButton = useRef(null);
 
   useEffect(() => {
     setPageState({
@@ -45,14 +45,14 @@ export default function EntityForm({
     const saveFunction = (...args) => (data.id ? dataService.putData(...args)
       : dataService.postData(...args));
 
-    if (e.nativeEvent.submitter === saveRef.current) {
+    if (e.nativeEvent.submitter === saveButton.current) {
       saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
         .then(() => {
           successNotification();
         })
         .catch((error) => errorHandler(error, setNotificationState));
     }
-    if (e.nativeEvent.submitter === saveAndBackRef.current) {
+    if (e.nativeEvent.submitter === saveAndBackButton.current) {
       saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
         .then(() => {
           setTimeout(
@@ -92,11 +92,11 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button variant="outlined" color="success" type="submit" ref={saveRef}>
+                <Button variant="outlined" color="success" type="submit" ref={saveButton}>
                   <SaveIcon />
                 </Button>
               )}
-              <Button variant="outlined" color="success" type="submit" ref={saveAndBackRef}>
+              <Button variant="outlined" color="success" type="submit" ref={saveAndBackButton}>
                 <SaveIcon /> &nbsp; Speichern und Schliessen
               </Button>
               <Button component={Link} to={`/${resource}`} variant="outlined" color="primary">
