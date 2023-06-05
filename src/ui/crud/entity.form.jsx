@@ -45,25 +45,28 @@ export default function EntityForm({
     const saveFunction = (...args) => (data.id ? dataService.putData(...args)
       : dataService.postData(...args));
 
+    const save = (back) => {
+      saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
+        .then(() => {
+          if (back) {
+            setTimeout(
+              () => {
+                navigate(`/${resource}`);
+                successNotification();
+              },
+              data.id ? 500 : 1000, // otherwise, changes won't be displayed (server is too slow)
+            );
+          } else {
+            successNotification();
+          }
+        })
+        .catch((error) => errorHandler(error, setNotificationState));
+    };
+
     if (e.nativeEvent.submitter === saveButton.current) {
-      saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
-        .then(() => {
-          successNotification();
-        })
-        .catch((error) => errorHandler(error, setNotificationState));
-    }
-    if (e.nativeEvent.submitter === saveAndBackButton.current) {
-      saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
-        .then(() => {
-          setTimeout(
-            () => {
-              navigate(`/${resource}`);
-              successNotification();
-            },
-            data.id ? 500 : 1000, // otherwise, changes won't be displayed (server is too slow)
-          );
-        })
-        .catch((error) => errorHandler(error, setNotificationState));
+      save(false);
+    } else if (e.nativeEvent.submitter === saveAndBackButton.current) {
+      save(true);
     }
   };
 
