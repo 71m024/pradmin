@@ -14,7 +14,12 @@ export default function AdminTextField({
     const newValue = e.target.value;
     setData({
       ...data,
-      [targetName]: (newValue.match('[0-9]+')) ? parseInt(newValue) : newValue,
+      [targetName]:
+        newValue.match('[0-9]+')
+          ? parseInt(newValue)
+          : numeric && newValue === ''
+            ? null
+            : newValue,
     });
   };
 
