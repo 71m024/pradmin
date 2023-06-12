@@ -23,7 +23,6 @@ export default function EntityForm({
   const navigate = useNavigate();
   const { setState: setNotificationState } = useContext(NotificationContext);
   const { setState: setPageState } = useContext(AppContext);
-  const saveButton = useRef(null);
   const saveAndBackButton = useRef(null);
 
   useEffect(() => {
@@ -47,27 +46,21 @@ export default function EntityForm({
 
     const save = (back) => {
       saveFunction(`${resource}${data.id ? `/${data.id}` : ''}`, data)
-        .then(() => {
-          if (back) {
+        .then(() => (
+          back ? (
             setTimeout(
               () => {
                 navigate(`/${resource}`);
                 successNotification();
               },
               data.id ? 500 : 1000, // otherwise, changes won't be displayed (server is too slow)
-            );
-          } else {
-            successNotification();
-          }
-        })
+            )
+          ) : successNotification()
+        ))
         .catch((error) => errorHandler(error, setNotificationState));
     };
 
-    if (e.nativeEvent.submitter === saveButton.current) {
-      save(false);
-    } else if (e.nativeEvent.submitter === saveAndBackButton.current) {
-      save(true);
-    }
+    save(e.nativeEvent.submitter === saveAndBackButton.current);
   };
 
   const handleDelete = () => {
@@ -95,7 +88,7 @@ export default function EntityForm({
           <Paper style={paperStyle} key="button-card">
             <Stack direction="row" spacing={2}>
               {data.id && (
-                <Button variant="outlined" color="success" type="submit" ref={saveButton}>
+                <Button variant="outlined" color="success" type="submit">
                   <SaveIcon />
                 </Button>
               )}
