@@ -1,27 +1,29 @@
 import * as React from 'react';
 import { TextField } from '@mui/material';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../../context/data.context';
 
 export default function AdminTextField({
-  name, label, numeric = false, inputProps, ...rest
+  name, label, numeric = false, chars = false, inputProps, ...rest
 }) {
   const [data, setData] = useContext(DataContext);
 
-  const handleInput = (e) => {
+  const parseValue = useCallback((newValue) => {
+    if (chars) return newValue;
+    if (newValue.match('[0-9]+')) return parseInt(newValue, 10);
+    if (numeric && newValue === '') return null;
+    return newValue;
+  }, []);
+
+  const handleInput = useCallback((e) => {
     const { name: targetName } = e.target;
     const newValue = e.target.value;
     setData({
       ...data,
-      [targetName]:
-        newValue.match('[0-9]+')
-          ? parseInt(newValue)
-          : numeric && newValue === ''
-            ? null
-            : newValue,
+      [targetName]: parseValue(newValue),
     });
-  };
+  }, []);
 
   return (
     <TextField
