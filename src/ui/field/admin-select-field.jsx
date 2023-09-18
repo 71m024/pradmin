@@ -7,7 +7,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../../context/data.context';
 
 export default function AdminSelectField({
-  name, label, value, setValue, values, menuItemFactory, handleInput,
+  name, label, value, setValue, values, menuItemFactory, handleInput, required = false,
 }) {
   const [data, setData] = useContext(DataContext);
 
@@ -25,13 +25,14 @@ export default function AdminSelectField({
   const assembledLabel = label ?? toCapitalizedWords(name);
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth required={required}>
       <InputLabel>{assembledLabel}</InputLabel>
       <Select
         name={name}
         value={value ?? data[name]}
         label={assembledLabel}
         onChange={handleSelectInput}
+        required={required}
       >
         {
           values.map(

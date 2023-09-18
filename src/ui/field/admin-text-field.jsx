@@ -5,7 +5,7 @@ import { toCapitalizedWords } from '../../util/string-functions';
 import DataContext from '../../context/data.context';
 
 export default function AdminTextField({
-  name, label, numeric = false, chars = false, inputProps, ...rest
+  name, label, numeric = false, required = false, chars = false, inputProps, ...rest
 }) {
   const [data, setData] = useContext(DataContext);
 
@@ -31,6 +31,7 @@ export default function AdminTextField({
       name={name}
       value={data[name] ?? ''}
       onChange={handleInput}
+      required={required}
       inputProps={{ ...inputProps, ...(numeric ? { inputMode: 'numeric' } : {}) }}
       /* eslint-disable-next-line react/jsx-props-no-spreading */
       {...rest}
