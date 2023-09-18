@@ -11,7 +11,7 @@ export default function AdminTextField({
 
   const parseValue = useCallback((newValue) => {
     if (chars) return newValue;
-    if (newValue.match('[0-9]+')) return parseInt(newValue, 10);
+    if (newValue.match('^[0-9]+$')) return parseInt(newValue, 10);
     if (numeric && newValue === '') return null;
     return newValue;
   }, []);
